@@ -103,7 +103,7 @@ button:focus-visible { outline: 3px solid rgba(159,32,137,.28); outline-offset: 
 .status.urgent { background: #fdecee; color: #aa2436; }
 .status.suggested { background: var(--warning-bg); color: #855000; }
 .status.progress { background: var(--blue-bg); color: #1d5798; }
-.row-primary, .row-action { height: 34px; border-radius: 8px; font-size: 11px; font-weight: 750; }
+.row-primary, .row-action { height: 34px; border-radius: 8px; font-size: 11px; font-weight: 750; padding: 0 11px; white-space: nowrap; flex: 0 0 auto; }
 .row-primary { border: 0; background: var(--jamuni-600); color: white; }
 .row-action { border: 1px solid #cfc6cc; color: var(--jamuni-900); background: white; }
 .side-summary { padding: 16px; }
@@ -302,3 +302,50 @@ th:nth-child(1){width:9%} th:nth-child(2){width:18%} th:nth-child(3){width:12%} 
 .native-role select { appearance: none; border: 0; outline: 0; background: transparent; color: inherit; font: inherit; font-weight: 650; cursor: pointer; padding: 0 2px; }
 .native-role select option { background: white; color: var(--ink-950); }
 .status.success { background: var(--success-bg); color: var(--success); }
+
+/* Judge-ready prototype refinements */
+.page-heading > :last-child { flex: 0 0 auto; white-space: nowrap; }
+.confirmed-action { background: var(--success); }
+.confirmed-action:hover { background: #0f6542; }
+.confirmation-copy { display: block; margin-top: 9px; color: #cfe9dc; font-size: 10px; line-height: 1.45; }
+.source-rfqs th:last-child, .source-rfqs td:last-child { width: 104px; min-width: 104px; }
+.source-rfqs td:last-child { padding-left: 7px; padding-right: 9px; }
+
+.evidence-gallery { align-items: stretch; height: 238px; }
+.evidence-shot { position: relative; flex: 1; min-width: 0; border-radius: 9px; border: 1px solid #dfd5dc; background: white; padding: 8px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+.evidence-shot .product-thumb { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; opacity: .82; }
+.evidence-shot::after { content: ''; position: absolute; inset: 48% 0 0; background: linear-gradient(transparent, rgba(42,20,36,.88)); }
+.evidence-shot > span, .evidence-shot > small { position: relative; z-index: 2; color: white; }
+.evidence-shot > span { font-size: 9px; font-weight: 850; letter-spacing: .05em; }
+.evidence-shot > small { font-size: 9px; margin-top: 3px; color: #f1eaf0; }
+.catalogue-shot .product-thumb { filter: saturate(.65) brightness(1.12); }
+.seller-shot { flex: 1.2; }
+.seller-shot .product-thumb { filter: saturate(.9) contrast(1.07); transform: scale(1.06); }
+.defect-shot .product-thumb { filter: sepia(.22) brightness(.78); transform: scale(1.18) translate(5px,4px); }
+.defect-shot > i { position: absolute; z-index: 3; width: 36px; height: 36px; border: 2px solid #e34b5d; border-radius: 50%; right: 10px; top: 32px; box-shadow: 0 0 0 3px rgba(227,75,93,.18); }
+.post-win-note { margin: 0 10px 10px; border: 1px solid #cfe1d8; background: var(--success-bg); color: var(--success); border-radius: 8px; padding: 8px 9px; display: flex; align-items: flex-start; gap: 7px; font-size: 9.5px; line-height: 1.4; }
+.post-win-note svg { width: 16px; flex: 0 0 auto; }
+.thumb-strip button { font-size: 9.5px; }
+
+.bid-confirm { margin: 10px 0; border: 1px solid rgba(244,189,50,.45); background: rgba(244,189,50,.12); border-radius: 8px; padding: 9px; display: grid; grid-template-columns: 19px 1fr auto; align-items: start; gap: 7px; }
+.bid-confirm > svg { width: 18px; color: var(--aam-500); }
+.bid-confirm > div { display: flex; flex-direction: column; }
+.bid-confirm strong { font-size: 10.5px; }
+.bid-confirm span { color: #ddcfda; font-size: 9px; line-height: 1.4; margin-top: 3px; }
+.bid-confirm button { border: 0; background: transparent; color: var(--aam-500); font-size: 9px; font-weight: 800; padding: 2px; }
+
+.evidence-before, .evidence-after { position: relative; overflow: hidden; }
+.evidence-before .product-thumb { filter: saturate(.75) brightness(1.08); }
+.evidence-after .product-thumb { filter: sepia(.18) brightness(.82) contrast(1.08); }
+.defect-marker { position: absolute; width: 31px; height: 31px; border: 2px solid #d94255; border-radius: 50%; right: 17px; top: 64px; box-shadow: 0 0 0 3px rgba(217,66,85,.15); }
+
+@media (max-width: 1350px) and (min-width: 901px) {
+  .app-shell { grid-template-columns: 210px minmax(0,1fr); }
+  .sidebar { padding-left: 10px; padding-right: 10px; }
+  .content { padding-left: 22px; padding-right: 22px; }
+  .market-layout { grid-template-columns: 190px 1fr; }
+  .lot-row { grid-template-columns: 88px minmax(180px,1fr) 112px 62px 82px; gap: 8px; }
+  .lot-row .product-thumb { width: 88px; height: 88px; }
+  .lot-main p, .lot-price small, .lot-time small, .filter-panel > label, .filter-group label { font-size: 10px; }
+  .lot-price > span { font-size: 9px; }
+}
