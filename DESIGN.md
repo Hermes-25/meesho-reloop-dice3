@@ -125,7 +125,7 @@ The desktop shell uses a fixed 248px sidebar, a sticky 68px top bar and a centre
 
 Navigation and content are role-aware: Seller surfaces prioritise recovery tasks and payout; Buyer surfaces prioritise lot discovery, passports, bids and orders; Internal surfaces prioritise marketplace health and exceptions. Switching roles resets to the role's natural entry screen.
 
-At narrower widths, dense grids collapse from three columns to two and then one, secondary asides move below primary content, and the marketplace filter panel is hidden below 900px. Below 760px the sidebar and role switcher are removed, page actions stack, rails and tables remain horizontally scrollable, and low-priority row metadata is reduced. This is a responsive safety net; the approved prototype remains desktop-first.
+At narrower widths, dense grids collapse from three columns to two and then one, secondary asides move below primary content, and the marketplace filter panel is hidden below 900px. On phones and tablets, the sidebar becomes an accessible slide-in drawer, the perspective switch remains visible, page actions stack, and wide operational tables become horizontally scrollable. The three role journeys therefore remain usable from a compact phone screen through a large desktop.
 
 ## Elevation & Depth
 
@@ -160,7 +160,7 @@ Fields use white or near-white surfaces, neutral strokes and 7–9px corners. Ca
 
 ### Navigation
 
-The sidebar groups work by role and keeps a persistent account identity at the bottom. Active items use a pale Jamuni fill, bold label and a three-pixel Jamuni indicator. The top bar carries search, prototype disclosure, help, priority notification and the perspective switch.
+The sidebar groups work by role and keeps a persistent account identity at the bottom. “Recovery home” and “Buyer home” are parent hubs, with their respective task journeys visibly nested below them; Meesho Source remains a separate second-pillar destination. Active items use a pale Jamuni fill, bold label and a three-pixel Jamuni indicator. The top bar carries search, prototype disclosure, help, priority notification and the perspective switch.
 
 ### Recovery Rail
 
