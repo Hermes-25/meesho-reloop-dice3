@@ -4,7 +4,7 @@
 
 Final challenge application · **Dicey Business / IIT Guwahati** · Meesho DICE 3.0
 
-[Open the live application](https://reloop-source.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [Run locally](#run-locally) · [Release record](docs/FINAL-RELEASE.md)
+[Open the live application](https://reloop-source.vercel.app) · [Architecture](docs/ARCHITECTURE.md) · [Run locally](#run-locally) · [Release record](docs/FINAL-RELEASE.md) · [Demo Video (~ 8 mins)](https://drive.google.com/file/d/1mD7zHmcE0ldjEytjGON-XGYbpoQtlBBX/view?usp=sharing) 
 
 > Proposed extension to Meesho, built for the challenge—not an official Meesho service or integration. The application runs real software workflows; demo inventory and operational figures are illustrative. Payments, courier events, refunds and settlements are test events.
 
