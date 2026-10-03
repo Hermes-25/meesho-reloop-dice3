@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {readFileSync,readdirSync} from 'node:fs';
+import {applicationService} from '../application-service.mjs';
+test('one-click personas stay within their own room; photos and real operations stay private; comments survive',async()=>{
+ const db=new DatabaseSync(':memory:');for(const f of readdirSync('drizzle').filter(x=>x.endsWith('.sql')).sort())db.exec(readFileSync('drizzle/'+f,'utf8'));
+ const binding={async batch(st){db.exec('BEGIN');try{const r=[];for(const s of st)r.push(await s.run());db.exec('COMMIT');return r}catch(e){db.exec('ROLLBACK');throw e}},prepare(sql){let values=[];return {bind(...v){values=v;return this},async first(){return db.prepare(sql).get(...values)},async all(){return {results:db.prepare(sql).all(...values)}},async run(){return db.prepare(sql).run(...values)}}}};
+ db.exec("INSERT INTO review_comments(id,screen,name,body,context,created_at,rate_key) VALUES ('original','S1','Reviewer','Preserve this','{}',1,'x')");
+ const objects=new Map(),env={DB:binding,APP_GATEWAY_SECRET:'test',BUCKET:{async put(k,b){objects.set(k,b)},async get(k){return objects.has(k)?{body:objects.get(k)}:null},async delete(k){objects.delete(k)}}};
+ const call=(path,data,cookie='')=>applicationService(new Request('https://test/api/application/'+path,{method:data?'POST':'GET',headers:{'X-ReLoop-Gateway':'test',Cookie:cookie},...(data?{body:data instanceof Uint8Array?data:JSON.stringify(data)}:{})}),env);
+ const real=await call('signup',{username:'real_seller',password:'a-long-test-password',business:'Real workspace',city:'Jaipur',role:'seller'}),rc=real.headers.get('set-cookie').split(';')[0];await call('state',null,rc);
+ const before=db.prepare("SELECT body FROM app_market WHERE id='market'").get().body;
+ const a=await call('demo/start',{role:'ops'}),ac=a.headers.get('set-cookie').split(';')[0];assert.equal(a.status,201);
+ const b=await call('demo/start',{role:'seller'}),bc=b.headers.get('set-cookie').split(';')[0];
+ const as=await(await call('state',null,ac)).json(),bs=await(await call('state',null,bc)).json();assert.ok(as.me.demo);assert.notEqual(as.me.id.split(':')[0],bs.me.id.split(':')[0]);
+ const issue=as.orders.find(o=>o.issue);const resolve={command:{type:'order.resolve',id:issue.id,note:'Checked illustrative packages with buyer.'},version:as.version,requestId:crypto.randomUUID()};
+ assert.equal((await call('command',resolve,ac)).status,200);
+ await call('demo/role',{role:'ops',spaceId:as.me.id.split(':')[0]},bc);assert.equal((await call('command',resolve,bc)).status,400);
+ assert.ok((await(await call('state',null,bc)).json()).orders.some(o=>o.issue));
+ await call('demo/role',{role:'seller'},ac);const bytes=new Uint8Array([255,216,255,224,0,16,74,70,73,70,0,1]);const upload=await call('photos',bytes,ac),photo=(await upload.json()).id;assert.equal(upload.status,201);assert.equal((await call('photos/'+photo,null,bc)).status,404);assert.equal((await call('photos/'+photo,null,rc)).status,404);
+ assert.equal((await call('demo/role',{role:'root'},ac)).status,400);
+ assert.equal(db.prepare("SELECT body FROM app_market WHERE id='market'").get().body,before);
+ assert.equal(db.prepare('SELECT COUNT(*) AS n FROM app_profiles').get().n,1);assert.equal(db.prepare("SELECT body FROM review_comments WHERE id='original'").get().body,'Preserve this');
+ db.exec('UPDATE app_demo_sessions SET expires_at=0');assert.equal((await call('state',null,ac+'; '+rc)).status,401);
+ const next=await call('demo/start',{role:'buyer'});assert.equal(next.status,201);assert.equal(objects.size,0);assert.equal(db.prepare('SELECT COUNT(*) AS n FROM app_demo_sessions').get().n,1);assert.equal(db.prepare("SELECT body FROM app_market WHERE id='market'").get().body,before);db.close();
+});

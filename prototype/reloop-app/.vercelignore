@@ -1,0 +1,12 @@
+node_modules/
+.vercel/
+.env*
+dist/
+docs/
+output/
+tests/
+scripts/
+.impeccable/
+DESIGN.md
+*.sqlite*
+public/assets/stock/*.png
