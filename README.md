@@ -194,4 +194,4 @@ The test suites cover pricing and financial visibility, three-persona permission
 
 This is a judge-ready challenge application, not a commercial marketplace launch. Production commerce would still need verified businesses, live payment/tax/logistics integrations, durable operational monitoring, scale testing and domain-specific model evaluation. No real money is collected by the demo.
 
-**Private repository.** Competition briefs and raw interview recordings are not part of this final code snapshot. Third-party libraries retain their own licences; the map's educational-use provenance is documented with its asset.
+**Public project repository.** The code matches the approved final live application, verified again on 5 October 2026. Competition briefs, raw interview recordings and production credentials are excluded. Third-party libraries retain their own licences; the map's educational-use provenance is documented with its asset.

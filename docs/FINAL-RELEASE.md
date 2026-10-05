@@ -9,7 +9,7 @@ The owner designated the **current live application** as the final product basel
 - Deployment target: production; READY when published.
 - Final UI change: removed the “Team feedback” sidebar link. Existing review comments remain preserved on their separate service.
 - Finalisation check: the public `/assets/app.js` returned HTTP 200 and matched the local production build byte-for-byte.
-- Repository: `Hermes-25/meesho-reloop-dice3`; private.
+- Repository: `Hermes-25/meesho-reloop-dice3`; private at the original 3 October release, made public at the owner's request on 5 October 2026.
 
 ## Scope frozen for this release
 
@@ -39,3 +39,7 @@ This commit contains code, migrations, illustrative assets and documentation. It
 - Live frontend bundle was byte-identical to the approved local build at finalisation.
 
 These checks verify software behaviour. They are not evidence of real-world model accuracy, commercial payment processing, courier performance or production-scale capacity.
+
+## Public release — 5 October 2026
+
+The final application code is unchanged. The owner's README demo-video link is retained, and repository visibility wording is updated. The final frontend bundle again matched the public live site's JavaScript byte-for-byte. The existing automated build and all 56 tests passed on the latest pre-publication commit. The original `final-demo-2026-10-03` tag remains available as the approved application snapshot.
